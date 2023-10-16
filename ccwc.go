@@ -70,7 +70,7 @@ func readData(fileName *string) []byte {
 
 func main() {
 	var flags Flags
-	var counts [4]int
+	var counts []int
 	var fileName string
 
 	parseArguments(&flags, &fileName)
@@ -88,11 +88,11 @@ func main() {
 				lineCount++
 			}
 		}
-		counts[0] = lineCount
+		counts = append(counts, lineCount)
 	}
 
 	if flags.words {
-		counts[1] = len(strings.Fields(string(dat)))
+		counts = append(counts, len(strings.Fields(string(dat))))
 	}
 
 	if flags.chars {
@@ -100,11 +100,11 @@ func main() {
 		for range string(dat) {
 			charCount++
 		}
-		counts[2] = charCount
+		counts = append(counts, charCount)
 	}
 
 	if flags.bytes {
-		counts[3] = len(dat)
+		counts = append(counts, len(dat))
 	}
 
 	// Output results to stdout.
